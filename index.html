@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K V N | نظام التحكم وإدارة السكربتات الاحترافي</title>
+    <title>K V N | خادم تحكم وحماية سكربتات اللوا</title>
     <style>
         :root {
             --bg-color: #0f0f12;
@@ -16,199 +16,51 @@
             --warning-color: #f39c12;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .login-container {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            padding: 40px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 400px;
-            margin: auto;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .login-container h2 {
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-
-        .dashboard {
-            display: none;
-            width: 100%;
-            max-width: 1400px;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin: auto;
-        }
-
-        @media (max-width: 1100px) {
-            .dashboard { grid-template-columns: 1fr; }
-        }
-
-        .panel {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
-        h3 {
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border-color);
-            color: var(--accent-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #a0aec0;
-        }
-
-        input[type="text"], input[type="password"], textarea, select {
-            width: 100%;
-            padding: 12px;
-            background: #1f1f2e;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--accent-color);
-        }
-
-        .btn {
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            transition: 0.3s;
-            text-align: center;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); display: flex; min-height: 100vh; padding: 20px; }
+        
+        .login-container { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; margin: auto; box-shadow: 0 8px 24px rgba(0,0,0,0.5); text-align: center; }
+        .login-container h2 { margin-bottom: 20px; color: var(--accent-color); }
+        
+        .dashboard { display: none; width: 100%; max-width: 1400px; grid-template-columns: 1fr 1fr; gap: 20px; margin: auto; }
+        @media (max-width: 1100px) { .dashboard { grid-template-columns: 1fr; } }
+        
+        .panel { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .full-width { grid-column: 1 / -1; }
+        h3 { margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid var(--border-color); color: var(--accent-color); }
+        
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-size: 14px; color: #a0aec0; }
+        input[type="text"], input[type="password"], textarea, select { width: 100%; padding: 12px; background: #1f1f2e; border: 1px solid var(--border-color); border-radius: 6px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, textarea:focus, select:focus { border-color: var(--accent-color); }
+        
+        .btn { background: var(--accent-color); color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; text-align: center; }
         .btn:hover { opacity: 0.9; }
         .btn-danger { background: var(--danger-color); }
         .btn-success { background: var(--success-color); }
         .btn-warning { background: var(--warning-color); color: #fff; }
-
-        .list-container {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .item-card {
-            background: #1f1f2e;
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .badge {
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: bold;
-        }
+        
+        .list-container { max-height: 350px; overflow-y: auto; }
+        .item-card { background: #1f1f2e; border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        
+        .badge { padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
         .badge-free { background: #2980b9; color: #fff; }
         .badge-premium { background: #9b59b6; color: #fff; }
-
-        .status-active { color: var(--success-color); font-weight: bold;}
-        .status-disabled { color: var(--danger-color); font-weight: bold;}
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 13px;
-            text-align: right;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid var(--border-color);
-        }
-
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; text-align: right; }
+        th, td { padding: 10px; border: 1px solid var(--border-color); }
         th { background: #1f1f2e; color: var(--accent-color); }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal-content {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 650px;
-            width: 90%;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            color: #718096;
-            font-size: 14px;
-            width: 100%;
-        }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--panel-bg); border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; max-width: 650px; width: 90%; }
     </style>
 </head>
 <body>
 
     <div class="login-container" id="loginBox">
         <h2>تسجيل دخول الإدارة</h2>
-        <p style="color: #718096; margin-bottom: 20px;">خاص بـ K V N فقط</p>
+        <p style="color: #718096; margin-bottom: 20px;">لوحة تحكم K V N</p>
         <div class="form-group">
             <input type="text" id="username" placeholder="اسم المستخدم">
         </div>
@@ -222,106 +74,96 @@
     <div class="dashboard" id="dashboardBox">
         
         <div class="panel full-width" style="display: flex; justify-content: space-between; align-items: center;">
-            <h2>لوحة إدارة وحماية سكربتات <span style="color: var(--accent-color);">K V N</span></h2>
+            <h2>لوحة إدارة وحماية سكربتات الـ Lua <span style="color: var(--accent-color);">K V N</span></h2>
             <button class="btn btn-danger" style="width: auto;" onclick="logout()">تسجيل الخروج</button>
         </div>
 
         <div class="panel">
-            <h3>رفع كود Lua جديد</h3>
+            <h3>رفع وإعداد ملف اللوا (.lua)</h3>
             <input type="hidden" id="editIndex" value="-1">
             
             <div class="form-group">
-                <label>اسم السكربت / الملف</label>
-                <input type="text" id="scriptName" placeholder="مثال: Hitbox_KVN">
+                <label>اسم ملف السكربت (بدون مسافات)</label>
+                <input type="text" id="scriptName" placeholder="مثال: romeat">
             </div>
 
             <div class="form-group">
-                <label>نوع السكربت ونظام الحماية</label>
+                <label>نظام حماية الملف</label>
                 <select id="scriptType">
-                    <option value="مجاني">مجاني محمي (بدون مفتاح - يعمل للجميع)</option>
-                    <option value="بمفتاح">مدفوع بمفتاح (Key System - حماية وربط جهاز)</option>
+                    <option value="مجاني">مجاني محمي (بدون مفتاح)</option>
+                    <option value="بمفتاح">مدفوع بمفتاح (حماية وربط جهاز وسحب يوزر)</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>الحالة العامة للتشغيل</label>
+                <label>حالة الملف الحالية</label>
                 <select id="scriptStatusInit">
-                    <option value="نشط">تفعيل وتشغيل السكربت (Active)</option>
-                    <option value="مغلق">إيقاف وتعطيل السكربت (Disabled)</option>
+                    <option value="نشط">تفعيل وتشغيل (Active)</option>
+                    <option value="مغلق">تعطيل مؤقت (Disabled)</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label>السورس كود الأساسي (Lua)</label>
-                <textarea id="luaCode" placeholder="ضع كود اللوا هنا..." style="height: 180px; font-family: monospace; width: 100%; background: #1f1f2e; border: 1px solid var(--border-color); color: #fff; padding: 10px; border-radius: 6px; resize: vertical;"></textarea>
+                <label>السورس كود الأساسي (Lua Code)</label>
+                <textarea id="luaCode" placeholder="ضع كود اللوا هنا..." style="height: 180px; font-family: monospace; color: #fff;"></textarea>
             </div>
 
-            <button class="btn btn-success" id="saveBtn" onclick="saveScript()">حفظ السكربت بالنظام</button>
+            <button class="btn btn-success" id="saveBtn" onclick="saveScript()">حفظ وصناعة مسار السكربت</button>
         </div>
 
         <div class="panel">
-            <h3>توليد مفتاح اشتراك جديد</h3>
-            
+            <h3>توليد مفاتيح الاشتراك للملفات المدفوعة</h3>
             <div class="form-group">
-                <label>اختر السكربت</label>
-                <select id="keyScriptSelect">
-                    </select>
+                <label>اختر ملف اللوا</label>
+                <select id="keyScriptSelect"></select>
             </div>
-
             <div class="form-group">
-                <label>مدة صلاحية المفتاح</label>
+                <label>صلاحية المفتاح</label>
                 <select id="keyDuration">
                     <option value="1">ساعة واحدة</option>
-                    <option value="2">ساعتين</option>
-                    <option value="24">يوم واحد (24 ساعة)</option>
-                    <option value="168">أسبوع (7 أيام)</option>
-                    <option value="720">شهر (30 يوم)</option>
+                    <option value="24">يوم كامل</option>
+                    <option value="168">أسبوع</option>
+                    <option value="720">شهر</option>
                     <option value="999999">مدى الحياة</option>
                 </select>
             </div>
-
-            <button class="btn btn-warning" onclick="generateKey()">صناعة وتوليد المفتاح 🔑</button>
+            <button class="btn btn-warning" onclick="generateKey()">توليد مفتاح ذكي 🔑</button>
         </div>
 
         <div class="panel">
-            <h3>السكربتات الحالية المرفوعة على الخادم</h3>
+            <h3>ملفات الـ Lua النشطة بالاستضافة</h3>
             <div class="list-container" id="scriptsContainer"></div>
         </div>
 
         <div class="panel">
-            <h3>قائمة المفاتيح النشطة وبيانات الأجهزة (خاص بالمدفوع)</h3>
-            <div class="list-container" style="max-height: 400px;">
+            <h3>إدارة ومراقبة المفاتيح والأجهزة المربوطة</h3>
+            <div class="list-container">
                 <table>
                     <thead>
                         <tr>
                             <th>المفتاح</th>
-                            <th>السكربت</th>
-                            <th>ينتهي في</th>
-                            <th>المستعمل</th>
-                            <th>الـ HWID المرتبط</th>
+                            <th>الملف المستهدف</th>
+                            <th>الصلاحية</th>
+                            <th>المستخدم الحالي</th>
+                            <th>كود الجهاز HWID</th>
                             <th>إجراء</th>
                         </tr>
                     </thead>
-                    <tbody id="keysTableBody">
-                        </tbody>
+                    <tbody id="keysTableBody"></tbody>
                 </table>
             </div>
-        </div>
-
-        <div class="footer full-width">
-            <p>جميع الحقوق محفوظة لـ <b>K V N</b> &copy; 2026</p>
         </div>
     </div>
 
     <div class="modal" id="linkModal">
         <div class="modal-content">
-            <h3 style="border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-bottom: 15px;">🔗 كود تشغيل السكربت بروبلوكس</h3>
+            <h3 style="border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; margin-bottom: 15px;">🔗 كود تشغيل المشغلات الخارجية (Volt / Xeno)</h3>
             <div class="form-group">
-                <label id="loadstringLabel">كود الـ Loadstring الجاهز والمحمي:</label>
-                <textarea id="loadstringField" readonly style="height: 100px; font-family: monospace; color: var(--success-color); width: 100%; background: #1f1f2e; border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; resize: none; direction: ltr; font-size:13px;"></textarea>
+                <label id="loadstringLabel">كود الـ Loadstring بمسار ملف حقيقي نقي:</label>
+                <textarea id="loadstringField" readonly style="height: 100px; font-family: monospace; color: var(--success-color); direction: ltr; font-size:13px;"></textarea>
             </div>
             <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button class="btn" style="background: var(--success-color);" onclick="copyToClipboard('loadstringField', 'تم نسخ كود التشغيل بنجاح!')">نسخ الكود الجاهز</button>
+                <button class="btn" style="background: var(--success-color);" onclick="copyToClipboard('loadstringField', 'تم نسخ كود التشغيل!')">نسخ الكود</button>
                 <button class="btn btn-danger" onclick="closeModal()">إغلاق</button>
             </div>
         </div>
@@ -331,260 +173,147 @@
         const ADMIN_USER = "3zf";
         const ADMIN_PASS = "Aa112212aa";
 
-        let dbScripts = JSON.parse(localStorage.getItem('kvn_scripts_v4')) || [];
-        let dbKeys = JSON.parse(localStorage.getItem('kvn_keys_v4')) || [];
+        let dbScripts = JSON.parse(localStorage.getItem('kvn_file_scripts')) || [];
+        let dbKeys = JSON.parse(localStorage.getItem('kvn_file_keys')) || [];
 
-        // معالجة قراءة الروابط النظيفة المتوافقة تماماً مع جيت هوب والاكسكيوتير
+        // التحقق الذكي ومحاكاة قراءة ملف اللوا الصافي للاكسكيوتير
         window.onload = function() {
             const currentUrl = window.location.href;
             
             if (currentUrl.includes("/script-raw/")) {
                 const urlParts = currentUrl.split("/script-raw/");
                 const subParts = urlParts[1].split("/");
-                const rawId = subParts[0]; // استخراج الـ ID من المسار مباشرة
-
-                // استخراج المتغيرات الإضافية (المفتاح، اليوزر، الـ HWID) من المسار المطور لمنع مشاكل الـ Query
-                let checkKey = "";
-                let hwid = "";
-                let user = "";
-
-                if (subParts.length > 1) { checkKey = decodeURIComponent(subParts[1] || ""); }
-                if (subParts.length > 2) { hwid = decodeURIComponent(subParts[2] || ""); }
-                if (subParts.length > 3) { user = decodeURIComponent(subParts[3] || ""); }
+                
+                // استخراج اسم الملف المحفوظ مثل romeat.lua
+                let fileName = subParts[0]; 
+                
+                let checkKey = subParts[1] ? decodeURIComponent(subParts[1]) : "";
+                let hwid = subParts[2] ? decodeURIComponent(subParts[2]) : "";
+                let user = subParts[3] ? decodeURIComponent(subParts[3]) : "";
 
                 const userAgent = navigator.userAgent.toLowerCase();
-                const isExecutor = userAgent.includes("roblox") || userAgent.includes("uwp") || userAgent.includes("injected") || !userAgent.includes("mozilla");
+                const isExecutor = userAgent.includes("roblox") || userAgent.includes("uwp") || userAgent.includes("injected") || !userAgent.includes("mozilla") || userAgent.includes("volt") || userAgent.includes("xeno");
 
-                // حظر المتصفحات العادية بالكلمة المحددة
                 if (!isExecutor) {
                     document.open();
-                    document.write(`
-                        <body style="background:#000; color:#ff4a4a; font-family: monospace; text-align:center; padding-top:140px; font-size: 26px; direction: rtl;">
-                            تبي السكربت ؟ <br><br>
-                            احلم
-                        </body>
-                    `);
+                    document.write(`<body style="background:#000; color:#ff4a4a; font-family:monospace; text-align:center; padding-top:140px; font-size:26px; direction:rtl;">تبي السكربت ؟ <br><br>احلم</body>`);
                     document.close();
                     return;
                 }
                 
-                processExecutorRequest(rawId, checkKey, hwid, user);
+                processExecutorRequest(fileName, checkKey, hwid, user);
                 return; 
             }
 
-            if(sessionStorage.getItem('isLogged') === 'true') {
-                showDashboard();
-            }
+            if(sessionStorage.getItem('isLogged') === 'true') { showDashboard(); }
         }
 
         function login() {
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            if(u === ADMIN_USER && p === ADMIN_PASS) {
-                sessionStorage.setItem('isLogged', 'true');
-                showDashboard();
-            } else {
-                document.getElementById('loginError').style.display = 'block';
-            }
+            if(document.getElementById('username').value === ADMIN_USER && document.getElementById('password').value === ADMIN_PASS) {
+                sessionStorage.setItem('isLogged', 'true'); showDashboard();
+            } else { document.getElementById('loginError').style.display = 'block'; }
         }
-
-        function logout() {
-            sessionStorage.removeItem('isLogged');
-            location.reload();
-        }
-
-        function showDashboard() {
-            document.getElementById('loginBox').style.display = 'none';
-            document.getElementById('dashboardBox').style.display = 'grid';
-            renderScripts();
-            renderKeys();
-            updateScriptSelect();
-        }
-
-        function generateUUID() {
-            return 'xxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
+        function logout() { sessionStorage.removeItem('isLogged'); location.reload(); }
+        function showDashboard() { document.getElementById('loginBox').style.display = 'none'; document.getElementById('dashboardBox').style.display = 'grid'; renderScripts(); renderKeys(); updateScriptSelect(); }
 
         function saveScript() {
-            const name = document.getElementById('scriptName').value.trim();
+            let name = document.getElementById('scriptName').value.trim().replace(/\s+/g, '_');
             const code = document.getElementById('luaCode').value.trim();
             const type = document.getElementById('scriptType').value;
             const initStatus = document.getElementById('scriptStatusInit').value;
             const editIndex = parseInt(document.getElementById('editIndex').value);
 
-            if(!name || !code) {
-                alert("الرجاء إدخال اسم السكربت وكود اللوا!");
-                return;
-            }
+            if(!name || !code) { alert("أدخل اسم الملف والكود أولاً!"); return; }
+            if(!name.endsWith('.lua')) { name += '.lua'; } // إضافة امتداد الملف تلقائياً
 
             if(editIndex > -1) {
-                dbScripts[editIndex].name = name;
-                dbScripts[editIndex].code = code;
-                dbScripts[editIndex].type = type;
-                dbScripts[editIndex].status = initStatus;
+                dbScripts[editIndex].name = name; dbScripts[editIndex].code = code; dbScripts[editIndex].type = type; dbScripts[editIndex].status = initStatus;
             } else {
-                dbScripts.push({
-                    id: generateUUID(),
-                    name: name,
-                    code: code,
-                    type: type,
-                    status: initStatus
-                });
+                if(dbScripts.some(s => s.name.toLowerCase() === name.toLowerCase())) { alert("اسم هذا الملف موجود مسبقاً! اختر اسماً آخر."); return; }
+                dbScripts.push({ name: name, code: code, type: type, status: initStatus });
             }
 
-            localStorage.setItem('kvn_scripts_v4', JSON.stringify(dbScripts));
-            document.getElementById('scriptName').value = "";
-            document.getElementById('luaCode').value = "";
-            document.getElementById('editIndex').value = "-1";
-            document.getElementById('saveBtn').innerText = "حفظ السكربت بالنظام";
-            
-            renderScripts();
-            updateScriptSelect();
-            alert("تم حفظ السكربت بنجاح وتحديث قاعدة البيانات!");
+            localStorage.setItem('kvn_file_scripts', JSON.stringify(dbScripts));
+            document.getElementById('scriptName').value = ""; document.getElementById('luaCode').value = ""; document.getElementById('editIndex').value = "-1";
+            document.getElementById('saveBtn').innerText = "حفظ وصناعة مسار السكربت";
+            renderScripts(); updateScriptSelect(); alert("تم حفظ ملف اللوا وتحديث المسار بنجاح!");
         }
 
         function updateScriptSelect() {
-            const select = document.getElementById('keyScriptSelect');
-            select.innerHTML = "";
-            const premiumScripts = dbScripts.filter(s => s.type === "بمفتاح");
-            premiumScripts.forEach(s => {
-                select.innerHTML += `<option value="${s.id}">${s.name}</option>`;
-            });
+            const select = document.getElementById('keyScriptSelect'); select.innerHTML = "";
+            dbScripts.filter(s => s.type === "بمفتاح").forEach(s => { select.innerHTML += `<option value="${s.name}">${s.name}</option>`; });
         }
 
         function generateKey() {
-            const scriptId = document.getElementById('keyScriptSelect').value;
-            if(!scriptId) {
-                alert("يرجى رفع سكربت بنظام (مدفوع بمفتاح) أولاً لتوليد كود له!");
-                return;
-            }
+            const fileName = document.getElementById('keyScriptSelect').value;
+            if(!fileName) { alert("لا يوجد ملفات بنظام المفتاح حالياً!"); return; }
             const hours = parseInt(document.getElementById('keyDuration').value);
             const keyGen = "KVN-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-            
-            let expireTime = "مدى الحياة";
-            if(hours < 999999) {
-                expireTime = new Date(Date.now() + hours * 60 * 60 * 1000).toLocaleString('en-US');
-            }
+            let expireTime = hours < 999999 ? new Date(Date.now() + hours * 60 * 60 * 1000).toLocaleString('en-US') : "مدى الحياة";
 
-            dbKeys.push({
-                key: keyGen,
-                scriptId: scriptId,
-                expire: expireTime,
-                status: "متاح",
-                userBound: "",
-                hwidBound: ""
-            });
-
-            localStorage.setItem('kvn_keys_v4', JSON.stringify(dbKeys));
-            renderKeys();
-            alert("تم توليد المفتاح بنجاح بنظام الحماية: " + keyGen);
+            dbKeys.push({ key: keyGen, fileName: fileName, expire: expireTime, status: "متاح", userBound: "", hwidBound: "" });
+            localStorage.setItem('kvn_file_keys', JSON.stringify(dbKeys));
+            renderKeys(); alert("تم توليد المفتاح: " + keyGen);
         }
 
         function renderScripts() {
-            const container = document.getElementById('scriptsContainer');
-            container.innerHTML = "";
-
-            if(dbScripts.length === 0) {
-                container.innerHTML = "<p style='color:#718096; text-align:center;'>لا توجد سكربتات مرفوعة حالياً.</p>";
-                return;
-            }
-
+            const container = document.getElementById('scriptsContainer'); container.innerHTML = "";
+            if(dbScripts.length === 0) { container.innerHTML = "<p style='color:#718096; text-align:center;'>لا توجد ملفات مرفوعة حالياً.</p>"; return; }
             dbScripts.forEach((script, index) => {
-                const statusClass = script.status === "نشط" ? "status-active" : "status-disabled";
-                const isFree = script.type === "مجاني";
-                const badgeClass = isFree ? "badge-free" : "badge-premium";
-                
                 container.innerHTML += `
                     <div class="item-card">
                         <div class="card-header">
-                            <strong>📄 ${script.name}</strong>
+                            <strong>📁 ${script.name}</strong>
                             <div>
-                                <span class="badge ${badgeClass}" style="margin-left: 5px;">${script.type}</span>
-                                <span class="status-active ${statusClass}">${script.status}</span>
+                                <span class="badge ${script.type === 'مجاني' ? 'badge-free' : 'badge-premium'}">${script.type}</span>
+                                <span class="${script.status === 'نشط' ? 'status-active' : 'status-disabled'}">${script.status}</span>
                             </div>
                         </div>
                         <div style="display:flex; gap:10px; margin-top:10px;">
-                            <button class="btn btn-warning" style="padding:6px; font-size:12px;" onclick="getLoadstringCode('${script.id}')">🔗 جلب رابط التشغيل</button>
+                            <button class="btn btn-warning" style="padding:6px; font-size:12px;" onclick="getLoadstringCode('${script.name}')">🔗 رابط اللودسترينج</button>
                             <button class="btn" style="padding:6px; font-size:12px; background:#4a5568;" onclick="editScript(${index})">📝 تعديل</button>
-                            <button class="btn btn-danger" style="padding:6px; font-size:12px; background:#9b2c2c;" onclick="deleteScript(${index})">🗑️ حذف</button>
+                            <button class="btn btn-danger" style="padding:6px; font-size:12px;" onclick="deleteScript(${index})">🗑️ حذف</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
         function renderKeys() {
-            const tbody = document.getElementById('keysTableBody');
-            tbody.innerHTML = "";
-
-            if(dbKeys.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#718096;">لا توجد مفاتيح مفعّلة حالياً.</td></tr>`;
-                return;
-            }
-
+            const tbody = document.getElementById('keysTableBody'); tbody.innerHTML = "";
+            if(dbKeys.length === 0) { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#718096;">لا توجد مفاتيح.</td></tr>`; return; }
             dbKeys.forEach((k, index) => {
-                const scriptObj = dbScripts.find(s => s.id === k.scriptId);
-                const scriptName = scriptObj ? scriptObj.name : "محذوف";
-                const isUsed = k.status === "مستعمل";
-
                 tbody.innerHTML += `
                     <tr>
                         <td style="font-family:monospace; color:#fff;"><b>${k.key}</b></td>
-                        <td>${scriptName}</td>
+                        <td>${k.fileName}</td>
                         <td style="font-size:11px;">${k.expire}</td>
-                        <td class="${isUsed ? 'status-disabled' : 'status-active'}">${isUsed ? '👤 ' + k.userBound : 'متاح'}</td>
+                        <td class="${k.status === 'مستعمل' ? 'status-disabled' : 'status-active'}">${k.status === 'مستعمل' ? '👤 ' + k.userBound : 'متاح'}</td>
                         <td style="font-family:monospace; font-size:11px; color:var(--accent-color); max-width:145px; overflow:hidden; text-overflow:ellipsis;">${k.hwidBound || '-'}</td>
                         <td><button class="btn btn-danger" style="padding:4px 8px; font-size:11px;" onclick="deleteKey(${index})">حذف</button></td>
-                    </tr>
-                `;
+                    </tr>`;
             });
         }
 
         function editScript(index) {
-            const s = dbScripts[index];
-            document.getElementById('scriptName').value = s.name;
-            document.getElementById('luaCode').value = s.code;
-            document.getElementById('scriptType').value = s.type;
-            document.getElementById('scriptStatusInit').value = s.status;
-            document.getElementById('editIndex').value = index;
-            document.getElementById('saveBtn').innerText = "تحديث البيانات الحالية";
-            window.scrollTo({top: 0, behavior: 'smooth'});
+            const s = dbScripts[index]; document.getElementById('scriptName').value = s.name; document.getElementById('luaCode').value = s.code; document.getElementById('scriptType').value = s.type; document.getElementById('scriptStatusInit').value = s.status; document.getElementById('editIndex').value = index; document.getElementById('saveBtn').innerText = "تحديث بيانات الملف"; window.scrollTo({top: 0, behavior: 'smooth'});
         }
+        function deleteScript(index) { if(confirm("حذف الملف؟")) { dbScripts.splice(index, 1); localStorage.setItem('kvn_file_scripts', JSON.stringify(dbScripts)); renderScripts(); updateScriptSelect(); } }
+        function deleteKey(index) { if(confirm("حذف المفتاح؟")) { dbKeys.splice(index, 1); localStorage.setItem('kvn_file_keys', JSON.stringify(dbKeys)); renderKeys(); } }
 
-        function deleteScript(index) {
-            if(confirm("هل تريد حذف هذا السكربت نهائياً من الخادم؟")) {
-                dbScripts.splice(index, 1);
-                localStorage.setItem('kvn_scripts_v4', JSON.stringify(dbScripts));
-                renderScripts();
-                updateScriptSelect();
-            }
-        }
-
-        function deleteKey(index) {
-            if(confirm("هل تريد إلغاء وحذف هذا المفتاح؟")) {
-                dbKeys.splice(index, 1);
-                localStorage.setItem('kvn_keys_v4', JSON.stringify(dbKeys));
-                renderKeys();
-            }
-        }
-
-        function getLoadstringCode(id) {
-            // تنظيف الرابط الأساسي وإزالة الـ index.html إذا كان مكتوباً تلقائياً بالمسار لضمان دقة الرابط الصافي
-            let baseUrl = window.location.href.split('?')[0].replace('index.html', '');
+        function getLoadstringCode(fileName) {
+            // تنظيف مسار الجيت هوب التلقائي ليكون المسار مباشر تماماً
+            let baseUrl = window.location.href.split('?')[0].replace('index.html', '').replace('404.html', '');
             if(!baseUrl.endsWith('/')) { baseUrl += '/'; }
             
-            const script = dbScripts.find(s => s.id === id);
+            const script = dbScripts.find(s => s.name === fileName);
             let code = "";
 
             if (script && script.type === "مجاني") {
-                document.getElementById('loadstringLabel').innerText = "كود تشغيل السكربت (مجاني محمي - مسار Raw نقي ومباشر):";
-                code = `loadstring(game:HttpGet("${baseUrl}script-raw/${id}"))()`;
+                document.getElementById('loadstringLabel').innerText = "كود التشغيل للملف (المجاني المحمي):";
+                code = `loadstring(game:HttpGet("${baseUrl}script-raw/${fileName}"))()`;
             } else {
-                document.getElementById('loadstringLabel').innerText = "كود تشغيل السكربت (مدفوع بمفتاح - مسار نقي ومطور):";
-                code = `_G.Key = "ضع_المفتاح_هنا"\nloadstring(game:HttpGet("${baseUrl}script-raw/${id}/" .. _G.Key .. "/" .. game:GetService("RbxAnalyticsService"):GetClientId() .. "/" .. game:GetService("Players").LocalPlayer.Name))()`;
+                document.getElementById('loadstringLabel').innerText = "كود التشغيل للملف (المدفوع بمفتاح وحماية جهاز):";
+                code = `_G.Key = "ضع_المفتاح_هنا"\nloadstring(game:HttpGet("${baseUrl}script-raw/${fileName}/" .. _G.Key .. "/" .. game:GetService("RbxAnalyticsService"):GetClientId() .. "/" .. game:GetService("Players").LocalPlayer.Name))()`;
             }
 
             document.getElementById('loadstringField').value = code;
@@ -592,16 +321,13 @@
         }
 
         function closeModal() { document.getElementById('linkModal').style.display = 'none'; }
+        function copyToClipboard(id, msg) { const text = document.getElementById(id); text.select(); navigator.clipboard.writeText(text.value); alert(msg); }
 
-        function copyToClipboard(id, msg) {
-            const text = document.getElementById(id);
-            text.select();
-            navigator.clipboard.writeText(text.value);
-            alert(msg);
-        }
-
-        function processExecutorRequest(rawId, checkKey, hwid, user) {
-            const script = dbScripts.find(s => s.id === rawId);
+        // ==================================================
+        //   المعالجة الذكية للتحقق وإرجاع الكود الصافي للمشغل
+        // ==================================================
+        function processExecutorRequest(fileName, checkKey, hwid, user) {
+            const script = dbScripts.find(s => s.name.toLowerCase() === fileName.toLowerCase());
             
             const antiTheftHeader = `-- ╔═══════════════════════════════════════════════╗\n` +
                                   `-- ║  تم حماية السكربت من Real                      ║\n` +
@@ -610,58 +336,41 @@
                                   `-- ╚═══════════════════════════════════════════════╝\n\n`;
 
             if (!script || script.status !== "نشط") {
-                outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("عذراً، السكربت معطل حالياً من الإدارة.")`);
-                return;
+                outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("الملف غير متوفر أو معطل حالياً.")`); return;
             }
 
             if (script.type === "مجاني") {
-                outputRaw(antiTheftHeader + script.code);
-                return;
+                outputRaw(antiTheftHeader + script.code); return;
             }
 
             if (!checkKey || checkKey.trim() === "" || checkKey === "ضع_المفتاح_هنا") {
-                outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("خطأ: يرجى كتابة المفتاح الخاص بك في خانة _G.Key لتشغيل السكربت.")`);
-                return;
+                outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("خطأ: يرجى كتابة المفتاح في خانة _G.Key")`); return;
             }
 
-            let keyIndex = dbKeys.findIndex(k => k.key === checkKey && k.scriptId === rawId);
-
+            let keyIndex = dbKeys.findIndex(k => k.key === checkKey && k.fileName.toLowerCase() === fileName.toLowerCase());
             if (keyIndex === -1) {
-                outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("المفتاح المكتوب غير صحيح أو غير متطابق!")`);
-                return;
+                outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("المفتاح غير صحيح لهذا الملف!")`); return;
             }
 
             let keyObj = dbKeys[keyIndex];
 
-            if (keyObj.expire !== "مدى الحياة") {
-                if (new Date() > new Date(keyObj.expire)) {
-                    outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("انتهت صلاحية هذا المفتاح تماماً.")`);
-                    return;
-                }
+            if (keyObj.expire !== "مدى الحياة" && new Date() > new Date(keyObj.expire)) {
+                outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("المفتاح منتهي الصلاحية!")`); return;
             }
 
             if (keyObj.status === "مستعمل") {
                 if (keyObj.hwidBound !== hwid || keyObj.userBound !== user) {
-                    outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("محاولة سرقة وتخطي! هذا المفتاح مسجل ومحمي لجهاز وحساب آخر بكود LUX.")`);
-                    return;
+                    outputRaw(antiTheftHeader + `game:GetService("Players").LocalPlayer:Kick("محاولة سرقة السورس! المفتاح مسجل لجهاز آخر بكود LUX.")`); return;
                 }
             } else {
-                keyObj.status = "مستعمل";
-                keyObj.hwidBound = hwid || "مجهول";
-                keyObj.userBound = user || "لاعب";
-                
-                dbKeys[keyIndex] = keyObj;
-                localStorage.setItem('kvn_keys_v4', JSON.stringify(dbKeys));
+                keyObj.status = "مستعمل"; keyObj.hwidBound = hwid || "مجهول"; keyObj.userBound = user || "لاعب";
+                dbKeys[keyIndex] = keyObj; localStorage.setItem('kvn_file_keys', JSON.stringify(dbKeys));
             }
 
             outputRaw(antiTheftHeader + script.code);
         }
 
-        function outputRaw(text) {
-            document.open();
-            document.write(text);
-            document.close();
-        }
+        function outputRaw(text) { document.open(); document.write(text); document.close(); }
     </script>
 </body>
 </html>
